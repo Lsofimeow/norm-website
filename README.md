@@ -1,6 +1,6 @@
 # NORM website
 
-Original English product website for an AI-assisted drone mission workspace,
+English and Chinese product website for an AI-assisted drone mission workspace,
 focused on fixed-wing waypoint missions. Plain HTML, CSS and JavaScript; no runtime
 dependencies, analytics, forms, payment, model API, or device connection.
 
@@ -26,6 +26,9 @@ The prebuilt sharing image is retained in `src/assets/og/` and copied during bui
 - `scripts/build.py`: shared templates, page content, original SVG illustrations.
 - `src/css/site.css`: responsive styles at desktop, tablet, and mobile breakpoints.
 - `src/js/site.js`: mobile navigation and illustrated workflow controls.
+- `scripts/localize.py` and `src/i18n/zh-CN.json`: build-time Chinese translations,
+  including metadata, accessible labels, diagrams, and same-page language links.
+- `src/assets/product/`: six original application captures supplied by the owner.
 - `site.config.json`: public domain, contact readiness, operator identity, release flag.
 - `dist/`: the only directory intended to be served publicly.
 - `.github/workflows/pages.yml`: build/check/deploy through GitHub Pages.
@@ -35,11 +38,11 @@ The prebuilt sharing image is retained in `src/assets/og/` and copied during bui
 Use a dedicated website repository. Do not add the incoming handoff archive,
 reference captures, project memos, private QA folder, or credentials to it.
 
-The initial configuration is a preview: contact unverified, operator unknown,
-`public_release: false`, and `noindex` pages. It can be deployed as an accurate
-informational preview. The contact page clearly says the inbox is in preparation
-and has no nonfunctional email button. Legal pages identify their preview status.
-These limited missing inputs do not block the rest of the site from being shown.
+The configuration remains a preview: operator unknown, `public_release: false`,
+and `noindex` pages. The contact address is published at the owner's request.
+Its destination verification and routing are enabled; end-to-end email receipt
+has not been tested. `contact_enabled` and `email_receipt_tested` record these
+different states. Legal pages identify their preview status.
 
 After confirmation, update the privacy/site notes for the actual deployed
 configuration, fill `operator_name`, set `email_verified` and `public_release` to
@@ -52,6 +55,11 @@ when using Actions. Push the website source to `main` and inspect the deployment
 result. Only `dist/` is uploaded by the workflow.
 
 See `DEPLOYMENT.md` for DNS, canonical redirects, and the email routing plan.
+
+The visual revision lives on `design/uforce-reference-v2`. The production branch
+and deployment workflow are unchanged. Open `dist/zh/index.html` for Chinese;
+the language switch preserves the current page. See `VISUAL_REDESIGN.md` for the
+revision scope and actual verification limits.
 
 ## Verification limits
 

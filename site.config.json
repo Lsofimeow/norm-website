@@ -5,5 +5,13 @@
   "email": "hello@normautonomy.com",
   "email_verified": false,
   "operator_name": null,
-  "public_release": false
+  "public_release": false,
+  "contact_enabled": true,
+  "email_destination_verified": true,
+  "email_routing_enabled": true,
+  "email_receipt_tested": false,
+  "languages": [
+    "en",
+    "zh-CN"
+  ]
 }
