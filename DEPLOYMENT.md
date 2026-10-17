@@ -6,15 +6,13 @@ Target: GitHub Pages origin; Cloudflare DNS and canonical redirects;
 ## 1. GitHub
 
 Public source repository: Lsofimeow/norm-website.
-GitHub Pages is enabled with GitHub Actions. The preview is deployed at
-`https://lsofimeow.github.io/norm-website/` with HTTPS enforced.
-Cloudflare DNS, redirects and Email Routing have not yet been configured.
+GitHub Pages is enabled with GitHub Actions. The preview has been deployed successfully. The Pages custom domain is now
+set to `normautonomy.com`; DNS configuration and HTTPS issuance are pending.
+Cloudflare redirects and Email Routing have not yet been configured.
 
-When Cloudflare setup can proceed, set the Pages custom domain to
-`normautonomy.com` before moving DNS. Verify domain ownership in GitHub where
+The Pages custom domain was saved before the DNS records were added. Verify domain ownership in GitHub where
 available. Record the deployed commit, Actions run, and actual Pages URL.
-After the custom domain is active, change `deployment_url` in
-`site.config.json` to `https://normautonomy.com` and deploy. This value controls
+`deployment_url` in `site.config.json` is now `https://normautonomy.com`. This value controls
 canonical URLs, social images, the sitemap and absolute 404 recovery links;
 regular navigation and assets use relative paths.
 
