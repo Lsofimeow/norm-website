@@ -6,3 +6,5 @@ qa-local/
 *.log
 credentials*
 node_modules/
+qa/work/
+qa/baseline-source/

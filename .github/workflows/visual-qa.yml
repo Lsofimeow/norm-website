@@ -1,0 +1,59 @@
+name: NORM visual QA (no deployment)
+on:
+  push:
+    branches: [design/uforce-reference-v2]
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'qa/**'
+      - 'site.config.json'
+      - '.github/workflows/visual-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: norm-visual-qa
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          ref: 3765a453ab6152c86e28e70fc873ff930a3ffabe
+          path: qa/baseline-source
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Build baseline and candidate
+        run: |
+          python3 qa/baseline-source/scripts/build.py
+          python3 scripts/build.py
+          python3 scripts/check.py
+          mkdir -p qa/work/before qa/work/after
+          cp -a qa/baseline-source/dist/. qa/work/before/
+          cp -a dist/. qa/work/after/
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright@1.62.1
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Capture and verify
+        env:
+          NORM_REVIEW_ROOT: qa/work
+          NORM_REVISION: ${{ github.sha }}
+          NORM_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node qa/capture.mjs
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: norm-browser-review
+          path: |
+            qa/work/screenshots/
+            qa/work/browser-results.json
+          if-no-files-found: error
+          retention-days: 14
