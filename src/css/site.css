@@ -35,3 +35,5 @@ body{font-size:16px;line-height:1.55}h1,h2{font-weight:900}h1{letter-spacing:-.0
 /* Owner-supplied product story: preserve reading size and media scale. */
 .mission-opening .section-title p,.status-columns+P{max-width:940px}.mission-opening .section-title p{font-size:19px;line-height:1.75}.workflow-intro{font-size:17px;line-height:1.75;max-width:590px;margin:25px 0 28px;color:#c0cdc4}.download-inner>div{max-width:850px}.download-inner p{max-width:800px;line-height:1.7}.download-inner .button{flex-shrink:0}.section-title p{max-width:900px}
 @media(max-width:600px){.mission-opening .section-title p{font-size:17px;line-height:1.75}.workflow-intro{font-size:16px}.download-inner p{font-size:17px}}
+
+.download-file{font-family:monospace;overflow-wrap:anywhere;margin-top:24px;color:var(--muted)}

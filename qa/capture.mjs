@@ -67,7 +67,7 @@ try{
    await page.screenshot({path:resolve(root,'screenshots',label+'-full.png'),fullPage:true});await page.screenshot({path:resolve(root,'screenshots',label+'-hero.png')});results.screenshots.push({label,width,path:'screenshots/'+label+'-full.png',hero:'screenshots/'+label+'-hero.png'});
    if(name==='download'){
     const href=await page.locator('.download-detail a.button').getAttribute('href');
-    results.checks.push({label,check:'public_download_destination',status:href==='https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview'?'PASS':'FAIL'});
+    results.checks.push({label,check:'public_download_destination',status:href==='https://github.com/Lsofimeow/norm-website/releases/download/windows-preview/NORM_Preview_1.0.0.zip'?'PASS':'FAIL'});
    }else{
     const email=await page.locator('.contact-panel a.email').getAttribute('href');
     results.checks.push({label,check:'contact_page_email',status:email==='mailto:hello@normautonomy.com'?'PASS':'FAIL'});
@@ -81,6 +81,9 @@ try{
  }
  await page.close();
  }
+ const downloadResponse=await fetch('https://github.com/Lsofimeow/norm-website/releases/download/windows-preview/NORM_Preview_1.0.0.zip',{method:'HEAD',redirect:'follow',signal:AbortSignal.timeout(30000)});
+ const bytes=Number(downloadResponse.headers.get('content-length'));
+ results.checks.push({label:'public-installer',check:'anonymous_download_head',status:downloadResponse.status===200&&bytes===660493462?'PASS':'FAIL',http_status:downloadResponse.status,content_length:bytes});
  results.status=results.errors.length||results.checks.some(c=>c.status==='FAIL')?'FAIL':'PASS';
 }catch(error){results.status='FAIL';results.errors.push({type:'runner',message:String(error)})}
 finally{if(browser)await browser.close();await new Promise(r=>server.close(r));results.finished_at=new Date().toISOString();await writeFile(resolve(root,'browser-results.json'),JSON.stringify(results,null,2));console.log(results.status,'— see browser-results.json');if(results.status!=='PASS')process.exitCode=1}
