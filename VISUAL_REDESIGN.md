@@ -4,9 +4,9 @@
 
 - Repository: `Lsofimeow/norm-website`; isolated branch: `design/uforce-reference-v2`.
 - Baseline: `3765a453ab6152c86e28e70fc873ff930a3ffabe`.
-- Browser-tested source: `3af1ca195a41c3fe1d8c2240450f0180302ba571`.
-- [Actual Chromium acceptance run](https://github.com/Lsofimeow/norm-website/actions/runs/39078676028): **PASS — 237 checks, 36 screenshots**.
-- All 12 original English routes retained; 12 Chinese routes added under `/zh/`.
+- Browser-tested source: `2200d2db4352c6edc08c58e9033069aea5716d6e`.
+- [Actual Chromium acceptance run](https://github.com/Lsofimeow/norm-website/actions/runs/39079829697): **PASS — 292 checks, 60 screenshots**.
+- All 12 original English routes retained; 12 corresponding Chinese routes added under `/zh/`, plus a new bilingual download page (26 pages total).
 - Production branch, Pages deployment workflow, CNAME and domain configuration remain unchanged. This revision has not been deployed.
 
 ## What changed and why
@@ -33,10 +33,29 @@ The copy keeps the fixed-wing mission focus, packaged Windows preview and
 incomplete real-aircraft execution acceptance. No specialist-foundry repositioning
 or unsupported compatibility or performance claim was introduced.
 
+The owner’s supplied product story is distributed across the homepage: a mission
+starting with a sentence, scattered information, bringing preparation together,
+retaining original requirements, preview scope, and the closing invitation.
+All six supplied paragraphs are preserved in Chinese, with a natural English
+version. Availability and limitations are also shown near downloads and on the
+product page. In particular, the preview is not intended for real flights,
+unattended operation, or production use. Eighteen content-presence checks passed.
+
 `hello@normautonomy.com` appears on the contact page, home/product contact areas
 and shared footer. Existing configuration records destination verification and
 routing as enabled. This revision does not recheck or change email infrastructure;
 end-to-end receipt is still NOT_RUN.
+
+The owner's follow-up also adds a bilingual download page, navigation and home/
+product download sections. They point to the fixed public GitHub Release page:
+https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview
+The owner uploaded `NORM_Preview_1.0.0.zip` (660,493,462 bytes). The download
+page now links directly to that file and separately to the fixed release page.
+Anonymous HTTP HEAD checks the public download response and content length.
+The complete 630 MiB package was not downloaded, audited or executed. The
+separate release-preparation workflow maintains this requested public location;
+it does not deploy the website. Upload directions are in
+`distribution/UPLOAD_GUIDE.md`.
 
 ## Browser review and fixes
 
@@ -45,7 +64,7 @@ Visual inspection then found missing spaces at mobile line-break boundaries and
 a Platform hero button that reopened its own page. Spaces were restored and the
 button now goes to the workspace section. Chinese font fallbacks were improved.
 A second screenshot review found an orphaned final character in the mobile
-Chinese product headline. The sentence was shortened without reducing type size.
+Chinese product headline, and a later review found the same issue in a story heading. The sentences were shortened without reducing type size.
 The final run includes regression checks for all three issues.
 
 The local managed preview could not start (`bwrap` mount permission failure).
@@ -85,18 +104,21 @@ motion or claim of an exact reproduction.
 
 | Check | Result |
 | --- | --- |
-| Build and complete translation keys | PASS — 24 pages |
-| Static links, resources, anchors, canonical/OG/hreflang and sitemap | PASS — 590 local references, 46 anchors, 22 sitemap URLs |
+| Build and complete translation keys | PASS — 26 pages |
+| Static links, resources, anchors, canonical/OG/hreflang and sitemap | PASS — 692 local references, 50 anchors, 24 sitemap URLs |
 | Asset hashes, SVG syntax, CSS balance, reference/credential leak scan | PASS |
 | Python compilation and JavaScript syntax | PASS |
 | Six original screenshots, Pages workflow, domain and CNAME preservation | PASS — byte/config comparison |
-| Before/after home and Platform at 1440/768/390 | PASS — 36 actual PNGs; before EN, after EN+ZH; full page and first viewport |
-| All 24 routes at all three widths | PASS — 72 route/layout/resource cases |
+| Before/after home and Platform at 1440/768/390 | PASS — 36 comparison PNGs; before EN, after EN+ZH; plus 24 download/contact PNGs |
+| All 26 routes at all three widths | PASS — 78 route/layout/resource cases |
 | Root horizontal overflow and loaded images on captured pages | PASS |
 | Mobile menu, Escape, screenshot dialog and focus return | PASS |
-| Workflow click, same-route language switch, contact navigation and Platform CTA | PASS |
+| Workflow click, same-route language switch, contact/download navigation, email destinations and Platform CTA | PASS |
 | Console errors, uncaught page errors and HTTP errors during exercised routes | PASS — zero recorded errors |
 | Firefox, Safari/WebKit and physical mobile devices | NOT_RUN |
+| Public release location | PASS — public repository, non-draft pre-release and owner-uploaded installer |
+| Anonymous installer URL / HTTP HEAD | PASS — HTTP 200 and expected 660,493,462-byte content length |
+| Full application download, integrity audit and execution | NOT_RUN |
 | End-to-end branded-email receipt | NOT_RUN |
 | NORM application, hardware or real-aircraft testing | NOT_RUN |
 

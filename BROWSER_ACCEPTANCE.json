@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "tested_source_revision": "3af1ca195a41c3fe1d8c2240450f0180302ba571",
-  "run_url": "https://github.com/Lsofimeow/norm-website/actions/runs/39078676028",
+  "tested_source_revision": "2200d2db4352c6edc08c58e9033069aea5716d6e",
+  "run_url": "https://github.com/Lsofimeow/norm-website/actions/runs/39079829697",
   "browser": "151.0.7922.34",
   "engine": "Chromium",
   "device_scale_factor": 1,
@@ -10,30 +10,38 @@
     768,
     390
   ],
-  "route_count": 24,
-  "route_width_cases": 72,
-  "screenshot_count": 36,
-  "checks_passed": 237,
+  "route_count": 26,
+  "route_width_cases": 78,
+  "screenshot_count": 60,
+  "checks_passed": 292,
+  "owner_copy_checks_passed": 18,
   "checks_by_type": {
     "root_horizontal_overflow": 18,
     "images_loaded": 18,
     "subtitle_word_spacing": 12,
     "image_dialog_and_focus": 12,
     "workflow_stage": 12,
+    "direct_email_contact": 12,
+    "download_navigation": 12,
     "language_keeps_route": 12,
     "workspace_cta_destination": 6,
+    "all_six_product_captures": 6,
     "menu_open_and_escape": 8,
     "chinese_mobile_headline_two_lines": 1,
-    "route_layout_resources": 72,
-    "contact_navigation": 66
+    "route_layout_resources": 78,
+    "contact_navigation": 72,
+    "contact_page_email": 6,
+    "public_download_destination": 6,
+    "anonymous_download_head": 1
   },
   "errors": [],
-  "finished_at": "2026-10-17T23:22:40.569Z",
+  "finished_at": "2026-10-17T23:40:51.680Z",
   "not_run": [
     "Firefox",
     "Safari/WebKit",
     "physical mobile devices",
     "email receipt",
+    "full installer download, integrity audit and execution",
     "NORM application and real aircraft execution"
   ]
 }

@@ -30,7 +30,8 @@ The prebuilt sharing image is retained in `src/assets/og/` and copied during bui
   including metadata, accessible labels, diagrams, and same-page language links.
 - `src/assets/product/`: six original application captures supplied by the owner.
 - `site.config.json`: public domain, contact readiness, operator identity, release flag.
-- `dist/`: the only directory intended to be served publicly.
+- `distribution/`: public release notes and owner upload instructions.
+- `dist/`: the only directory intended to be served as the website.
 - `.github/workflows/pages.yml`: build/check/deploy through GitHub Pages.
 
 ## Deployment
@@ -61,10 +62,23 @@ and deployment workflow are unchanged. Open `dist/zh/index.html` for Chinese;
 the language switch preserves the current page. See `VISUAL_REDESIGN.md` for the
 revision scope and actual verification limits.
 
+## Public download location
+
+The website links to https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview
+from its bilingual download page. This is a public pre-release download location;
+the owner has uploaded `NORM_Preview_1.0.0.zip` (660,493,462 bytes). The
+download page links directly to that asset and separately to the fixed release page. The automatic Source code archives
+contain website source, not the application. See `distribution/UPLOAD_GUIDE.md`.
+
+`download-channel.yml` prepares that requested location separately from the
+read-only visual QA workflow. Neither workflow deploys the website. Production
+still uses the unchanged Pages workflow on `main`.
+
 ## Verification limits
 
 Static link, manifest, metadata, sitemap, SVG and leak checks can run offline.
 Chromium layout and interaction checks are recorded in `BROWSER_ACCEPTANCE.json`; `qa/capture.mjs` and the isolated visual QA workflow reproduce them. Product status
 is project reported; building this website does not test the NORM application.
-There is no public installer, demo endpoint, compatibility matrix or evidence
-download in this artifact.
+The public download location and owner-uploaded application package are available. See `distribution/UPLOAD_GUIDE.md` for owner upload steps. The fixed public release page lists uploaded files. The direct installer URL in
+`site.config.json` must be updated if a later upload has a different filename. There is no demo endpoint,
+compatibility matrix or public flight-evidence download in this artifact.
