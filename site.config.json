@@ -13,5 +13,7 @@
   "languages": [
     "en",
     "zh-CN"
-  ]
+  ],
+  "download_page_url": "https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview",
+  "installer_uploaded": false
 }

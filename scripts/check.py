@@ -129,7 +129,7 @@ for f in DIST.rglob('*'):
 
 if not (DIST/'assets/og/norm-preview.png').is_file():errors.append('Missing OG raster')
 if (DIST/'CNAME').read_text().strip()!=DOMAIN:errors.append('CNAME mismatch')
-if counts['html_pages']!=24 or counts['sitemap_urls']!=22:errors.append('Incorrect page count')
+if counts['html_pages']!=26 or counts['sitemap_urls']!=24:errors.append('Incorrect page count')
 result={'scope':'static artifact checks only','status':'PASS' if not errors else 'FAIL','counts':counts,'errors':errors,'browser_testing':'NOT_RUN','NORM_product_testing':'NOT_RUN'}
 print(json.dumps(result,indent=2))
 sys.exit(bool(errors))

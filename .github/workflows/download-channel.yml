@@ -1,0 +1,28 @@
+name: Prepare public NORM download channel
+on:
+  push:
+    branches: [design/uforce-reference-v2]
+    paths:
+      - '.github/workflows/download-channel.yml'
+      - 'distribution/RELEASE_NOTES.md'
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Create the requested download location if absent
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view windows-preview >/dev/null 2>&1; then
+            gh release view windows-preview --json url,isDraft,isPrerelease,assets
+          else
+            gh release create windows-preview --target 3765a453ab6152c86e28e70fc873ff930a3ffabe --prerelease --latest=false --title "NORM for Windows — Preview downloads" --notes-file distribution/RELEASE_NOTES.md
+            gh release view windows-preview --json url,isDraft,isPrerelease,assets
+          fi
