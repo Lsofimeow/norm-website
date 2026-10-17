@@ -23,6 +23,10 @@ try{
   const overflow=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,elements:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&getComputedStyle(e).position!=='fixed'&&e.getBoundingClientRect().width>0).slice(0,12).map(e=>({tag:e.tagName,class:e.className,right:e.getBoundingClientRect().right}))}));results.checks.push({label,check:'root_horizontal_overflow',status:overflow.overflow?'FAIL':'PASS',details:overflow});
   const broken=await page.evaluate(()=>[...document.images].filter(i=>i.src&&(!i.complete||!i.naturalWidth)).map(i=>i.src));results.checks.push({label,check:'images_loaded',status:broken.length?'FAIL':'PASS',broken});
   if(stage==='after'){
+   if(language==='zh'&&name==='platform'&&width===390){
+    const headline=await page.locator('.brand-hero h1').evaluate(e=>({height:e.getBoundingClientRect().height,lineHeight:parseFloat(getComputedStyle(e).lineHeight)}));
+    results.checks.push({label,check:'chinese_mobile_headline_two_lines',status:headline.height<=headline.lineHeight*2+1?'PASS':'FAIL',details:headline});
+   }
    const subtitle=await page.locator('.hero-subtitle').innerText();
    results.checks.push({label,check:'subtitle_word_spacing',status:language!=='en'||(!subtitle.includes('review.Built')&&!subtitle.includes('edits,and'))?'PASS':'FAIL',subtitle});
    if(name==='platform'){
