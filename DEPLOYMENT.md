@@ -1,4 +1,4 @@
-# Deployment configuration and remaining domain setup
+# Deployment configuration and status
 
 Target: GitHub Pages origin; Cloudflare DNS and canonical redirects;
 `hello@normautonomy.com` forwarded to a user-selected verified mailbox.
@@ -7,8 +7,11 @@ Target: GitHub Pages origin; Cloudflare DNS and canonical redirects;
 
 Public source repository: Lsofimeow/norm-website.
 GitHub Pages is enabled with GitHub Actions. The preview has been deployed successfully. The Pages custom domain is now
-set to `normautonomy.com`; DNS configuration and HTTPS issuance are pending.
-Cloudflare redirects and Email Routing have not yet been configured.
+set to `normautonomy.com`. The apex HTTPS site returned HTTP 200, and
+GitHub Enforce HTTPS is enabled. The apex A records remain DNS-only.
+Cloudflare holds the canonical redirect rule; only the www CNAME uses its proxy.
+Email Routing DNS is enabled and ready. Destination verification and creation
+of the hello forwarding rule remain pending; the public contact address is not yet enabled.
 
 The Pages custom domain was saved before the DNS records were added. Verify domain ownership in GitHub where
 available. Record the deployed commit, Actions run, and actual Pages URL.
@@ -31,7 +34,7 @@ GitHub's documented apex A records:
 | A | @ | 185.199.109.153 |
 | A | @ | 185.199.110.153 |
 | A | @ | 185.199.111.153 |
-| CNAME | www | Lsofimeow.github.io (expected owner hostname) |
+| CNAME | www | lsofimeow.github.io |
 
 The `www` CNAME target does not include the repository name. Set DNS-only
 initially so GitHub can validate the domain and issue its certificate.
@@ -43,6 +46,11 @@ Cloudflare proxy for records that must be covered by Redirect Rules. Use
 Full (strict) TLS to the GitHub origin; do not use Flexible mode. Verify
 origin HTTPS before enabling the proxy. Preserve unrelated zone settings.
 
+Current configuration: the four apex A records are DNS-only; only `www` is
+proxied to serve its canonical redirect at the Cloudflare edge. The Cloudflare
+universal certificate covering the apex and wildcard is active, and TLS mode
+is Full (strict). Apex HTTP-to-HTTPS is provided by GitHub Pages.
+
 ## 3. Canonical redirect
 
 Canonical URL: `https://normautonomy.com`.
@@ -51,7 +59,7 @@ Create a Single Redirect scoped to exactly these two hostnames:
 
 ```text
 (http.host eq "www.normautonomy.com") or
-(http.host eq "normautonomy.com" and http.request.scheme eq "http")
+(http.host eq "normautonomy.com" and not ssl)
 ```
 
 Dynamic destination expression:
@@ -72,7 +80,10 @@ and query. Also check `/404-example/nested/` and confirm an actual 404 status.
 
 Create the custom incoming address `hello@normautonomy.com` in Cloudflare
 Email Routing and route it to the destination mailbox selected by the user.
-The destination must be verified before routing is active.
+The destination must be verified before routing is active. The destination
+address has been registered and its verification email requested. Cloudflare
+rejected creation of the forwarding rule while that address is unverified.
+After the user verifies it, create the rule and check receipt; catch-all remains off.
 
 Inspect existing MX and SPF records first. Do not replace active mail hosting
 without resolving the conflict. Use Cloudflare's actual generated MX/TXT
