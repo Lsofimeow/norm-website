@@ -10,8 +10,9 @@ GitHub Pages is enabled with GitHub Actions. The preview has been deployed succe
 set to `normautonomy.com`. The apex HTTPS site returned HTTP 200, and
 GitHub Enforce HTTPS is enabled. The apex A records remain DNS-only.
 Cloudflare holds the canonical redirect rule; only the www CNAME uses its proxy.
-Email Routing DNS is enabled and ready. Destination verification and creation
-of the hello forwarding rule remain pending; the public contact address is not yet enabled.
+Email Routing DNS is enabled and ready. The destination was verified on
+2026-10-17, and the hello forwarding rule is enabled. An end-to-end receipt
+test is still pending; the public contact link remains disabled until that check.
 
 The Pages custom domain was saved before the DNS records were added. Verify domain ownership in GitHub where
 available. Record the deployed commit, Actions run, and actual Pages URL.
@@ -80,10 +81,9 @@ and query. Also check `/404-example/nested/` and confirm an actual 404 status.
 
 Create the custom incoming address `hello@normautonomy.com` in Cloudflare
 Email Routing and route it to the destination mailbox selected by the user.
-The destination must be verified before routing is active. The destination
-address has been registered and its verification email requested. Cloudflare
-rejected creation of the forwarding rule while that address is unverified.
-After the user verifies it, create the rule and check receipt; catch-all remains off.
+The destination was verified on 2026-10-17. The forwarding rule now matches
+only `hello@normautonomy.com` and is enabled. Cloudflare reports Email Routing
+as ready; catch-all remains off. End-to-end receipt has not yet been tested.
 
 Inspect existing MX and SPF records first. Do not replace active mail hosting
 without resolving the conflict. Use Cloudflare's actual generated MX/TXT
