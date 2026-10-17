@@ -46,7 +46,7 @@ different states. Legal pages identify their preview status.
 
 After confirmation, update the privacy/site notes for the actual deployed
 configuration, fill `operator_name`, set `email_verified` and `public_release` to
-true, and rebuild. Complete browser QA before treating the artifact as accepted.
+true, and rebuild. The isolated design revision has completed Chromium browser QA; see `BROWSER_ACCEPTANCE.json` for its exact tested source revision and scope.
 
 Set repository Settings → Pages → Source to GitHub Actions. Configure the custom
 domain as `normautonomy.com` in GitHub Pages settings. The `CNAME` file is included
@@ -64,7 +64,7 @@ revision scope and actual verification limits.
 ## Verification limits
 
 Static link, manifest, metadata, sitemap, SVG and leak checks can run offline.
-Browser layout/interaction checks must be recorded separately. Product status
+Chromium layout and interaction checks are recorded in `BROWSER_ACCEPTANCE.json`; `qa/capture.mjs` and the isolated visual QA workflow reproduce them. Product status
 is project reported; building this website does not test the NORM application.
 There is no public installer, demo endpoint, compatibility matrix or evidence
 download in this artifact.

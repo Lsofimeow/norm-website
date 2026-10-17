@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "tested_source_revision": "3af1ca195a41c3fe1d8c2240450f0180302ba571",
+  "run_url": "https://github.com/Lsofimeow/norm-website/actions/runs/39078676028",
+  "browser": "151.0.7922.34",
+  "engine": "Chromium",
+  "device_scale_factor": 1,
+  "viewport_widths": [
+    1440,
+    768,
+    390
+  ],
+  "route_count": 24,
+  "route_width_cases": 72,
+  "screenshot_count": 36,
+  "checks_passed": 237,
+  "checks_by_type": {
+    "root_horizontal_overflow": 18,
+    "images_loaded": 18,
+    "subtitle_word_spacing": 12,
+    "image_dialog_and_focus": 12,
+    "workflow_stage": 12,
+    "language_keeps_route": 12,
+    "workspace_cta_destination": 6,
+    "menu_open_and_escape": 8,
+    "chinese_mobile_headline_two_lines": 1,
+    "route_layout_resources": 72,
+    "contact_navigation": 66
+  },
+  "errors": [],
+  "finished_at": "2026-10-17T23:22:40.569Z",
+  "not_run": [
+    "Firefox",
+    "Safari/WebKit",
+    "physical mobile devices",
+    "email receipt",
+    "NORM application and real aircraft execution"
+  ]
+}
