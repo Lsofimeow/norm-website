@@ -13,6 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 DIST=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'dist'
 CONFIG=json.loads((ROOT/'site.config.json').read_text())
 DOMAIN=CONFIG['domain']
+BASE=CONFIG.get('deployment_url', 'https://'+DOMAIN).rstrip('/')
 errors=[]
 counts={'html_pages':0,'local_references':0,'anchors':0,'sitemap_urls':0,'asset_hashes':0}
 
@@ -48,10 +49,10 @@ for f in sorted(DIST.rglob('*.html')):
     if not p.title or len(p.meta.get('description',''))<30:errors.append(f'{f.name}: missing title/description')
     for prop in ('og:title','og:description','og:image','og:url','robots'):
         if not p.meta.get(prop):errors.append(f'{f.name}: missing {prop}')
-    expected='https://'+DOMAIN+('/' if f==DIST/'index.html' else '/'+f.relative_to(DIST).as_posix().replace('index.html',''))
+    expected=BASE+('/' if f==DIST/'index.html' else '/'+f.relative_to(DIST).as_posix().replace('index.html',''))
     if p.links.get('canonical')!=expected or p.meta.get('og:url')!=expected:errors.append(f'{f.name}: canonical/OG mismatch')
     if not CONFIG.get('public_release') and p.meta.get('robots')!='noindex,follow':errors.append('Preview indexing enabled')
-    if p.meta.get('og:image')!='https://'+DOMAIN+'/assets/og/norm-preview.png':errors.append('OG image mismatch')
+    if p.meta.get('og:image')!=BASE+'/assets/og/norm-preview.png':errors.append('OG image mismatch')
 
 titles=[p.title for p in pages.values()]
 if len(titles)!=len(set(titles)):errors.append('Duplicate page titles')
@@ -90,9 +91,11 @@ for f in DIST.rglob('*.svg'):
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
 for loc in ET.parse(DIST/'sitemap.xml').findall('.//s:loc',ns):
     u=urlsplit(loc.text)
-    target=DIST/u.path.lstrip('/')
+    site_path=urlsplit(BASE).path.rstrip('/')+'/'
+    relative_path=u.path.removeprefix(site_path)
+    target=DIST/relative_path
     if u.path.endswith('/'):target=target/'index.html'
-    if u.netloc!=DOMAIN or target not in pages:errors.append('Invalid sitemap URL '+loc.text)
+    if u.netloc!=urlsplit(BASE).netloc or not u.path.startswith(site_path) or target not in pages:errors.append('Invalid sitemap URL '+loc.text)
     counts['sitemap_urls']+=1
 
 manifest=json.loads((DIST/'BUILD_MANIFEST.json').read_text())
