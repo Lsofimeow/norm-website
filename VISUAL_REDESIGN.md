@@ -87,6 +87,6 @@ breaks, perceived image scale, page height and tablet spacing need browser revie
 The managed preview process failed before serving pages:
 `bwrap: Can't mount proc on /newroot/proc: Operation not permitted`.
 No browser acceptance result or before/after screenshots have been fabricated.
-The private comparison package contains actual reference PNGs and same-width
+The private comparison package contains actual reference captures (lossless WebP copies for delivery) and same-width
 live HTML frames for the baseline and revision, plus an optional local capture
 script. The comparison frames are not screenshots or test evidence.
