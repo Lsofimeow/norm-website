@@ -1,0 +1,48 @@
+name: Prepare public NORM download channel
+on:
+  push:
+    branches: [design/uforce-reference-v2]
+    paths:
+      - '.github/workflows/download-channel.yml'
+      - 'distribution/RELEASE_NOTES.md'
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Create the requested download location if absent
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view windows-preview >/dev/null 2>&1; then
+            gh release view windows-preview --json url,isDraft,isPrerelease,assets
+          else
+            gh release create windows-preview --target 3765a453ab6152c86e28e70fc873ff930a3ffabe --prerelease --latest=false --title "NORM for Windows — Preview downloads" --notes-file distribution/RELEASE_NOTES.md
+            gh release view windows-preview --json url,isDraft,isPrerelease,assets
+          fi
+      - name: Match the uploaded filename and preserve other release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh api "repos/$GH_REPO/releases/tags/windows-preview" > "$RUNNER_TEMP/norm-release.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          folder=Path(os.environ['RUNNER_TEMP'])
+          release=json.loads((folder/'norm-release.json').read_text())
+          assert release['id']==416128576 and release['tag_name']=='windows-preview'
+          body=release['body'].replace('NORM-Windows-Preview.zip','NORM_Preview_1.0.0.zip')
+          if 'not intended for real flights' not in body:
+              body=body.replace('Full real-aircraft execution acceptance is still incomplete.','Full real-aircraft execution acceptance is still incomplete. The preview is not intended for real flights, unattended operation, or production use.')
+          if '尚不面向实飞' not in body:
+              body=body.replace('真实飞机执行闭环尚未全部验收。','真实飞机执行闭环尚未全部验收，尚不面向实飞、无人值守或生产运营使用。')
+          (folder/'norm-release-update.json').write_text(json.dumps({'body':body}))
+          PY
+          gh api --method PATCH "repos/$GH_REPO/releases/416128576" --input "$RUNNER_TEMP/norm-release-update.json" --jq '.html_url'

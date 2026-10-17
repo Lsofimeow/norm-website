@@ -1,0 +1,28 @@
+{
+  "url": "https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview",
+  "release_id": 416128576,
+  "tag": "windows-preview",
+  "draft": false,
+  "prerelease": true,
+  "repository_visibility": "public",
+  "installer_uploaded": true,
+  "assets": [
+    {
+      "id": 651888415,
+      "name": "NORM_Preview_1.0.0.zip",
+      "url": "https://github.com/Lsofimeow/norm-website/releases/download/windows-preview/NORM_Preview_1.0.0.zip",
+      "size": 660493462,
+      "state": "uploaded",
+      "digest": "sha256:1b12c9a06e950ea045e303016f31232924b179e474fdd11d533d84d3be629718"
+    }
+  ],
+  "setup_run_url": "https://github.com/Lsofimeow/norm-website/actions/runs/39079609189",
+  "checked_at": "2026-10-17T23:36:11.864Z",
+  "application_execution": "NOT_RUN",
+  "anonymous_head": {
+    "status": 200,
+    "content_length": 660493462,
+    "result": "PASS",
+    "verified_in_run": "https://github.com/Lsofimeow/norm-website/actions/runs/39079829697"
+  }
+}

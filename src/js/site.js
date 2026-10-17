@@ -12,8 +12,30 @@
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { close(); menu.focus(); }
     });
-    const desktop = matchMedia('(min-width: 801px)');
+    const desktop = matchMedia('(min-width: 992px)');
     desktop.addEventListener('change', () => { if (desktop.matches) close(); });
+  }
+  const dialog = document.querySelector('.screen-dialog');
+  if (dialog) {
+    const image = dialog.querySelector('#screen-image');
+    const caption = dialog.querySelector('#screen-caption');
+    let opener;
+    document.querySelectorAll('[data-screen]').forEach(button => {
+      button.addEventListener('click', () => {
+        opener = button;
+        image.src = button.dataset.screen;
+        image.alt = button.querySelector('img').alt;
+        caption.textContent = button.dataset.caption;
+        dialog.showModal();
+        document.body.classList.add('screenshot-open');
+      });
+    });
+    dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => {
+      document.body.classList.remove('screenshot-open');
+      if (opener) opener.focus();
+    });
   }
   document.querySelectorAll('[data-workflow]').forEach(workflow => {
     const buttons = [...workflow.querySelectorAll('[data-step]')];

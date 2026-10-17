@@ -1,6 +1,6 @@
 # NORM website
 
-Original English product website for an AI-assisted drone mission workspace,
+English and Chinese product website for an AI-assisted drone mission workspace,
 focused on fixed-wing waypoint missions. Plain HTML, CSS and JavaScript; no runtime
 dependencies, analytics, forms, payment, model API, or device connection.
 
@@ -26,8 +26,12 @@ The prebuilt sharing image is retained in `src/assets/og/` and copied during bui
 - `scripts/build.py`: shared templates, page content, original SVG illustrations.
 - `src/css/site.css`: responsive styles at desktop, tablet, and mobile breakpoints.
 - `src/js/site.js`: mobile navigation and illustrated workflow controls.
+- `scripts/localize.py` and `src/i18n/zh-CN.json`: build-time Chinese translations,
+  including metadata, accessible labels, diagrams, and same-page language links.
+- `src/assets/product/`: six original application captures supplied by the owner.
 - `site.config.json`: public domain, contact readiness, operator identity, release flag.
-- `dist/`: the only directory intended to be served publicly.
+- `distribution/`: public release notes and owner upload instructions.
+- `dist/`: the only directory intended to be served as the website.
 - `.github/workflows/pages.yml`: build/check/deploy through GitHub Pages.
 
 ## Deployment
@@ -35,15 +39,15 @@ The prebuilt sharing image is retained in `src/assets/og/` and copied during bui
 Use a dedicated website repository. Do not add the incoming handoff archive,
 reference captures, project memos, private QA folder, or credentials to it.
 
-The initial configuration is a preview: contact unverified, operator unknown,
-`public_release: false`, and `noindex` pages. It can be deployed as an accurate
-informational preview. The contact page clearly says the inbox is in preparation
-and has no nonfunctional email button. Legal pages identify their preview status.
-These limited missing inputs do not block the rest of the site from being shown.
+The configuration remains a preview: operator unknown, `public_release: false`,
+and `noindex` pages. The contact address is published at the owner's request.
+Its destination verification and routing are enabled; end-to-end email receipt
+has not been tested. `contact_enabled` and `email_receipt_tested` record these
+different states. Legal pages identify their preview status.
 
 After confirmation, update the privacy/site notes for the actual deployed
 configuration, fill `operator_name`, set `email_verified` and `public_release` to
-true, and rebuild. Complete browser QA before treating the artifact as accepted.
+true, and rebuild. The isolated design revision has completed Chromium browser QA; see `BROWSER_ACCEPTANCE.json` for its exact tested source revision and scope.
 
 Set repository Settings → Pages → Source to GitHub Actions. Configure the custom
 domain as `normautonomy.com` in GitHub Pages settings. The `CNAME` file is included
@@ -53,10 +57,28 @@ result. Only `dist/` is uploaded by the workflow.
 
 See `DEPLOYMENT.md` for DNS, canonical redirects, and the email routing plan.
 
+The visual revision lives on `design/uforce-reference-v2`. The production branch
+and deployment workflow are unchanged. Open `dist/zh/index.html` for Chinese;
+the language switch preserves the current page. See `VISUAL_REDESIGN.md` for the
+revision scope and actual verification limits.
+
+## Public download location
+
+The website links to https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview
+from its bilingual download page. This is a public pre-release download location;
+the owner has uploaded `NORM_Preview_1.0.0.zip` (660,493,462 bytes). The
+download page links directly to that asset and separately to the fixed release page. The automatic Source code archives
+contain website source, not the application. See `distribution/UPLOAD_GUIDE.md`.
+
+`download-channel.yml` prepares that requested location separately from the
+read-only visual QA workflow. Neither workflow deploys the website. Production
+still uses the unchanged Pages workflow on `main`.
+
 ## Verification limits
 
 Static link, manifest, metadata, sitemap, SVG and leak checks can run offline.
-Browser layout/interaction checks must be recorded separately. Product status
+Chromium layout and interaction checks are recorded in `BROWSER_ACCEPTANCE.json`; `qa/capture.mjs` and the isolated visual QA workflow reproduce them. Product status
 is project reported; building this website does not test the NORM application.
-There is no public installer, demo endpoint, compatibility matrix or evidence
-download in this artifact.
+The public download location and owner-uploaded application package are available. See `distribution/UPLOAD_GUIDE.md` for owner upload steps. The fixed public release page lists uploaded files. The direct installer URL in
+`site.config.json` must be updated if a later upload has a different filename. There is no demo endpoint,
+compatibility matrix or public flight-evidence download in this artifact.

@@ -12,7 +12,9 @@ GitHub Enforce HTTPS is enabled. The apex A records remain DNS-only.
 Cloudflare holds the canonical redirect rule; only the www CNAME uses its proxy.
 Email Routing DNS is enabled and ready. The destination was verified on
 2026-10-17, and the hello forwarding rule is enabled. An end-to-end receipt
-test is still pending; the public contact link remains disabled until that check.
+test is still pending. The owner requested a visible contact address in the
+visual revision; that isolated branch enables the link without marking receipt
+as tested. This revision has not been merged or deployed to production.
 
 The Pages custom domain was saved before the DNS records were added. Verify domain ownership in GitHub where
 available. Record the deployed commit, Actions run, and actual Pages URL.

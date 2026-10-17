@@ -5,5 +5,19 @@
   "email": "hello@normautonomy.com",
   "email_verified": false,
   "operator_name": null,
-  "public_release": false
+  "public_release": false,
+  "contact_enabled": true,
+  "email_destination_verified": true,
+  "email_routing_enabled": true,
+  "email_receipt_tested": false,
+  "languages": [
+    "en",
+    "zh-CN"
+  ],
+  "download_page_url": "https://github.com/Lsofimeow/norm-website/releases/tag/windows-preview",
+  "installer_uploaded": true,
+  "download_asset_url": "https://github.com/Lsofimeow/norm-website/releases/download/windows-preview/NORM_Preview_1.0.0.zip",
+  "installer_name": "NORM_Preview_1.0.0.zip",
+  "installer_size_bytes": 660493462,
+  "installer_sha256": "1b12c9a06e950ea045e303016f31232924b179e474fdd11d533d84d3be629718"
 }
