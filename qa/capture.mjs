@@ -23,6 +23,12 @@ try{
   const overflow=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,elements:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&getComputedStyle(e).position!=='fixed'&&e.getBoundingClientRect().width>0).slice(0,12).map(e=>({tag:e.tagName,class:e.className,right:e.getBoundingClientRect().right}))}));results.checks.push({label,check:'root_horizontal_overflow',status:overflow.overflow?'FAIL':'PASS',details:overflow});
   const broken=await page.evaluate(()=>[...document.images].filter(i=>i.src&&(!i.complete||!i.naturalWidth)).map(i=>i.src));results.checks.push({label,check:'images_loaded',status:broken.length?'FAIL':'PASS',broken});
   if(stage==='after'){
+   const subtitle=await page.locator('.hero-subtitle').innerText();
+   results.checks.push({label,check:'subtitle_word_spacing',status:language!=='en'||(!subtitle.includes('review.Built')&&!subtitle.includes('edits,and'))?'PASS':'FAIL',subtitle});
+   if(name==='platform'){
+    await page.locator('.hero-center .button').click();
+    results.checks.push({label,check:'workspace_cta_destination',status:page.url().endsWith('#workspace')&&await page.locator('#workspace').isVisible()?'PASS':'FAIL'});
+   }
    if(width<992){await page.locator('.menu-toggle').click();const opened=await page.locator('.menu-toggle').getAttribute('aria-expanded')==='true';await page.keyboard.press('Escape');const closed=await page.locator('.menu-toggle').getAttribute('aria-expanded')==='false';results.checks.push({label,check:'menu_open_and_escape',status:opened&&closed?'PASS':'FAIL'})}
    await page.locator('[data-screen]').first().click();const open=await page.locator('.screen-dialog').evaluate(e=>e.open);await page.keyboard.press('Escape');const close=await page.locator('.screen-dialog').evaluate(e=>!e.open);const focus=await page.locator('[data-screen]').first().evaluate(e=>e===document.activeElement);results.checks.push({label,check:'image_dialog_and_focus',status:open&&close&&focus?'PASS':'FAIL'});
    await page.locator('[data-step="4"]').click();results.checks.push({label,check:'workflow_stage',status:await page.locator('[data-panel="4"]').isVisible()?'PASS':'FAIL'});

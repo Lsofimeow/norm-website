@@ -1,6 +1,5 @@
 {
   "A clearer mission plan.": "让任务计划更清楚。",
-  "A closer look at the Windows preview, using actual application screenshots.": "通过真实软件截图，看看 Windows 预览版里的工作方式。",
   "A closer look.": "再看近一点。",
   "A conceptual view of how the mission brief, AI proposals, waypoint review, approval, and device mission records fit together.": "从任务需求、AI 建议，到航点审阅、人工批准和设备记录，一张图看清它们的关系。",
   "A conceptual view of the responsibilities in NORM: mission requirements, AI proposals, waypoint review, operator approval, and device records.": "NORM 工作台的职责分工：任务需求、AI 建议、航点审阅、人工批准与设备记录。",
@@ -158,7 +157,6 @@
   "Mission drafts · An empty draft list is shown in this capture.": "任务草稿 · 截图中的草稿列表为空。",
   "Mission drafts · The supplied capture has no saved drafts. Saving a draft does not send it to a device.": "任务草稿 · 截图中没有已保存的草稿。保存草稿不会将其发送给设备。",
   "Mission preparation": "任务准备",
-  "Mission preparation · User-supplied Windows preview screenshot.": "任务准备 · 用户提供的 Windows 预览版真实截图。",
   "Mission records": "任务记录",
   "Mission requirements": "任务需求",
   "Mission retrieval": "任务读取",
@@ -343,5 +341,7 @@
   "through acceptance.": "直到完成验收。",
   "to a reviewed plan.": "到审阅后的计划。",
   "to the device. Carefully.": "走向设备。",
-  "Make the call.": "决定权在你。"
+  "Make the call.": "决定权在你。",
+  "The Windows preview, up close.": "近距离看看 Windows 预览版。",
+  "Mission preparation · Windows preview.": "任务准备 · Windows 预览版界面。"
 }
